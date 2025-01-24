@@ -5,6 +5,6 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-BRANCH_NAME = "$1"
+BRANCH_NAME="$1"
 
-echo "Branch Name '$BRANCH_NAME' is detected!"
+echo "Branch Name $BRANCH_NAME is detected!"
