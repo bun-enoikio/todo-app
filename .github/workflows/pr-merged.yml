@@ -13,11 +13,18 @@ jobs:
       # Step 1: Check out the code
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       # Step 2: Set execute permission for the script
       - name: Make the script executable
-        run: chmod +x ./scripts/github-action/get-feature-branch.sh
+        run: chmod +x scripts/github-action/get-feature-branch.sh
 
-      # Step 3: Run the shell script
+      # Step 3: Debug Git log
+      - name: Debug Git log
+        run: git log --merges --oneline
+
+      # Step 4: Run the shell script
       - name: Run the feature branch extraction script
         run: ./scripts/github-action/get-feature-branch.sh
+        shell: bash
