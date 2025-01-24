@@ -16,10 +16,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Step 2: Set execute permission for the script
-      - name: Make the script executable
-        run: chmod -R 755 scripts/github-action/
-
       # Step 3: Run the shell script and capture output
       - name: Run the feature branch extraction script
         id: extract-branch
