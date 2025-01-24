@@ -1,0 +1,7 @@
+{
+  "name": "app-todo",
+  "main": "index.js",
+  "compatibility_date": "2025-01-23",
+  "account_id": "00e038df407fbb93b230bd5bea02c778",
+  "workers_dev": true
+}
