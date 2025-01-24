@@ -20,11 +20,14 @@ jobs:
       - name: Make the script executable
         run: chmod +x scripts/github-action/get-feature-branch.sh
 
-      # Step 3: Debug Git log
-      - name: Debug Git log
-        run: git log --merges --oneline
-
-      # Step 4: Run the shell script
+      # Step 3: Run the shell script and capture output
       - name: Run the feature branch extraction script
-        run: ./scripts/github-action/get-feature-branch.sh
+        id: extract-branch
+        run: |
+          feature_branch=$(./scripts/github-action/get-feature-branch.sh)
+          echo "feature_branch=$feature_branch" >> $GITHUB_ENV
         shell: bash
+
+      # Step 4: Use the branch name in another step
+      - name: Print extracted branch name
+        run: echo "The feature branch is ${{ env.feature_branch }}"
