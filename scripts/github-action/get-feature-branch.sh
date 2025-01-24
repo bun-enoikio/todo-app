@@ -32,4 +32,4 @@ fi
 feature_branch=$(basename "$full_branch_name")
 
 # Output the feature branch name
-echo "Feature branch name: $feature_branch"
+echo "$feature_branch"
