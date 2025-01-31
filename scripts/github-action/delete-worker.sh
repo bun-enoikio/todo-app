@@ -8,7 +8,7 @@ fi
 BRANCH_NAME="$1"
 WORKERS=$(curl -s -X GET "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/workers/scripts" \
 -H "Authorization: Bearer $API_TOKEN" \
--H "Content-Type: application/json" | jq -r '.result[]?.id | grep "$BRANCH_NAME"')
+-H "Content-Type: application/json" | jq -r '.result[]?.id' | grep "$BRANCH_NAME")
 
 if [ -z "$WORKERS" ]; then
   echo "No worker found for branch $BRANCH_NAME"
