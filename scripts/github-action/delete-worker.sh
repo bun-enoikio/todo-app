@@ -21,12 +21,11 @@ SERVICE_WORKER=($(echo "$WORKERS" | grep -v "^$MAIN_WORKER"))
 echo "Deleting worker $MAIN_WORKER"
 
 for worker in "${SERVICE_WORKER[@]}"; do
-  if [ -z "$worker" ]; then
+  if [ -n "$worker" ]; then
     echo "Deleting worker $worker"
     curl -s -X DELETE "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/workers/scripts/$worker" \
     -H "Authorization: Bearer $API_TOKEN" \
     -H "Content-Type: application/json" | jq .
-
   fi
 done
 echo "Branch Name $BRANCH_NAME is detected!"
