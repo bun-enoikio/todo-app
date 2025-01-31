@@ -17,15 +17,15 @@ jobs:
           fetch-depth: 0
 
       # Step 3: Run the shell script and capture output
-      - name: Run the feature branch extraction script
-        id: extract-branch
-        run: |
-          feature_branch=$(./scripts/github-action/get-feature-branch.sh)
-          echo "feature_branch=$feature_branch" >> $GITHUB_ENV
-        shell: bash
+      # - name: Run the feature branch extraction script
+      #   id: extract-branch
+      #   run: |
+      #     feature_branch=$(./scripts/github-action/get-feature-branch.sh)
+      #     echo "feature_branch=$feature_branch" >> $GITHUB_ENV
+      #   shell: bash
 
       # Step 4: Use the branch name in another step
       - name: Print extracted branch name
-        run: ./scripts/github-action/delete-worker.sh ${{ env.feature_branch }}
+        run: ./scripts/github-action/delete-worker.sh "57f4"
         shell: bash
 
