@@ -13,6 +13,7 @@ if [ -z "$1" ]; then
 fi
 
 BRANCH_NAME="$1"
+echo "CF_API_TOKEN: $CF_API_TOKEN is detected!"  # Debug information
 WORKERS=$(curl -s -X GET "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/workers/scripts" \
 -H "Authorization: Bearer $CF_API_TOKEN" \
 -H "Content-Type: application/json" | jq -r '.result[]?.id')
