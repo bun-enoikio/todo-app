@@ -28,7 +28,7 @@ jobs:
         shell: bash
 
       # Step 4: Use the branch name in another step
-      - name: Print extracted branch name
+      - name: Print extracted branch name1
         run: ./scripts/github-action/delete-worker.sh ${{env.feature_branch}}
         shell: bash
 
