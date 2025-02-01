@@ -1,5 +1,8 @@
 #!/bin/bash
 # Check if a branch name is provided
+
+CF_ACCOUNT_ID="00e038df407fbb93b230bd5bea02c778"
+API_TOKEN="t48OO40SPir-7H_dd8ZWMaONqln7SA-V0uSSWlPF"
 if [ -z "$1" ]; then
   echo "Usage: $0 <branch name>"
   exit 1
@@ -8,7 +11,11 @@ fi
 BRANCH_NAME="$1"
 WORKERS=$(curl -s -X GET "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/workers/scripts" \
 -H "Authorization: Bearer $API_TOKEN" \
--H "Content-Type: application/json" | jq -r '.result[]?.id' | grep "$BRANCH_NAME")
+-H "Content-Type: application/json" | jq -r '.result[]?.id')
+
+echo "Fetched workers: $WORKERS"  # Debug information
+
+WORKERS=$(echo "$WORKERS" | grep "$BRANCH_NAME")
 
 if [ -z "$WORKERS" ]; then
   echo "No worker found for branch $BRANCH_NAME"
