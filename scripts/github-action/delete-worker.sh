@@ -15,8 +15,6 @@ WORKERS=$(curl -s -X GET "https://api.cloudflare.com/client/v4/accounts/$CF_ACCO
 
 echo "Fetched workers: $WORKERS"  # Debug information
 
-WORKERS=$(echo "$WORKERS" | grep "$BRANCH_NAME")
-
 if [ -z "$WORKERS" ]; then
   echo "No worker found for branch $BRANCH_NAME"
   exit 1
