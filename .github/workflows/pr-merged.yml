@@ -8,6 +8,9 @@ on:
 jobs:
   run-script:
     runs-on: ubuntu-latest
+    env:
+      CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+      CF_ACCOUNT_ID: "00e038df407fbb93b230bd5bea02c778"
 
     steps:
       # Step 1: Check out the code
@@ -17,15 +20,15 @@ jobs:
           fetch-depth: 0
 
       # Step 3: Run the shell script and capture output
-      # - name: Run the feature branch extraction script
-      #   id: extract-branch
-      #   run: |
-      #     feature_branch=$(./scripts/github-action/get-feature-branch.sh)
-      #     echo "feature_branch=$feature_branch" >> $GITHUB_ENV
-      #   shell: bash
+      - name: Run the feature branch extraction script
+        id: extract-branch
+        run: |
+          feature_branch=$(./scripts/github-action/get-feature-branch.sh)
+          echo "feature_branch=$feature_branch" >> $GITHUB_ENV
+        shell: bash
 
       # Step 4: Use the branch name in another step
       - name: Print extracted branch name
-        run: ./scripts/github-action/delete-worker.sh "57f4"
+        run: ./scripts/github-action/delete-worker.sh ${{env.feature_branch}}
         shell: bash
 
