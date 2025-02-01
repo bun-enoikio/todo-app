@@ -8,9 +8,6 @@ on:
 jobs:
   run-script:
     runs-on: ubuntu-latest
-    env:
-      CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-      CF_ACCOUNT_ID: "00e038df407fbb93b230bd5bea02c778"
 
     steps:
       # Step 1: Check out the code
@@ -29,6 +26,9 @@ jobs:
 
       # Step 4: Use the branch name in another step
       - name: Print extracted branch name1
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: "00e038df407fbb93b230bd5bea02c778"
         run: ./scripts/github-action/delete-worker.sh ${{env.feature_branch}}
         shell: bash
 
