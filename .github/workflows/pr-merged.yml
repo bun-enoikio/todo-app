@@ -16,19 +16,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Step 3: Run the shell script and capture output
-      - name: Run the feature branch extraction script
+      # Step 2: Extract the branch name correctly
+      - name: Extract branch name
         id: extract-branch
         run: |
-          feature_branch=$(./scripts/github-action/get-feature-branch.sh)
-          echo "feature_branch=$feature_branch" >> $GITHUB_ENV
-        shell: bash
+          feature_branch=$(git rev-parse --abbrev-ref HEAD)
+          echo "Extracted Feature Branch: $feature_branch"
+          echo "FEATURE_BRANCH=$feature_branch" >> $GITHUB_ENV
 
-      # Step 4: Use the branch name in another step
-      - name: Print extracted branch name1
+      # Step 3: Run the deletion script with the correct branch name
+      - name: Delete Cloudflare Worker
         env:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ACCOUNT_ID: 00e038df407fbb93b230bd5bea02c778
-        run: ./scripts/github-action/delete-worker.sh ${{env.feature_branch}}
+        run: |
+          echo "Branch passed: $FEATURE_BRANCH"
+          ./scripts/github-action/delete-worker.sh $FEATURE_BRANCH
         shell: bash
-
